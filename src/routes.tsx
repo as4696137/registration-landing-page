@@ -12,6 +12,8 @@ export const router = createBrowserRouter(
             <Route path="register" element={<RegisterPage />} />
             <Route path="submit" element={<SubmitPage />} />
         </Route>
-    )
+    ),
+    {
+        basename: import.meta.env.BASE_URL,
+    }
 );
-
