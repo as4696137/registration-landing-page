@@ -67,19 +67,4 @@
     -webkit-text-stroke: 1px black;
   }
 
-  .star-bg-spin {
-    animation: star-bg-spin 12s linear infinite;
-    transform-box: fill-box;
-    transform-origin: center;
-  }
-
-  @keyframes star-bg-spin {
-    from {
-      transform: rotate(0deg);
-    }
-
-    to {
-      transform: rotate(360deg);
-    }
-  }
 }

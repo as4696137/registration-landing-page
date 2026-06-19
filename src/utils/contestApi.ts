@@ -59,6 +59,12 @@ export type Submission = {
   updated_at?: string | null;
 };
 
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/$/, '');
+
+function apiUrl(path: string) {
+  return `${API_BASE_URL}${path}`;
+}
+
 async function parseApiResponse<T>(response: Response) {
   const body = await response.json();
 
@@ -71,7 +77,7 @@ async function parseApiResponse<T>(response: Response) {
 
 export const contestApi = {
   async getContest() {
-    const response = await fetch('/api/contest', {
+    const response = await fetch(apiUrl('/contest'), {
       headers: { Accept: 'application/json' },
     });
     const body = await parseApiResponse<ContestConfig>(response);
@@ -79,7 +85,7 @@ export const contestApi = {
   },
 
   async createRegistration(payload: CreateRegistrationPayload) {
-    const response = await fetch('/api/registrations', {
+    const response = await fetch(apiUrl('/registrations'), {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -92,7 +98,7 @@ export const contestApi = {
   },
 
   async getRegistration(registrationCode: string) {
-    const response = await fetch(`/api/registrations/${registrationCode}`, {
+    const response = await fetch(apiUrl(`/registrations/${encodeURIComponent(registrationCode)}`), {
       headers: { Accept: 'application/json' },
     });
     const body = await parseApiResponse<Registration>(response);
@@ -114,7 +120,7 @@ export const contestApi = {
       }
     });
 
-    const response = await fetch('/api/submissions', {
+    const response = await fetch(apiUrl('/submissions'), {
       method: 'POST',
       headers: {
         Accept: 'application/json',

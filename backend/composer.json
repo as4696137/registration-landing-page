@@ -1,5 +1,5 @@
 {
-  "name": "ming-en/contest-backend",
+  "name": "as4696137/registration-landing-page-backend",
   "type": "project",
   "description": "Laravel backend API for the contest registration and submission workflow.",
   "license": "MIT",
@@ -24,16 +24,11 @@
       "@php artisan package:discover --ansi"
     ],
     "post-create-project-cmd": [
-      "@php artisan key:generate --ansi",
-      "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-      "@php artisan migrate --graceful --ansi"
+      "@php artisan key:generate --ansi"
     ],
     "serve": [
       "Composer\\Config::disableProcessTimeout",
       "@php artisan serve --host=127.0.0.1 --port=8000"
-    ],
-    "test": [
-      "@php artisan test"
     ]
   },
   "extra": {

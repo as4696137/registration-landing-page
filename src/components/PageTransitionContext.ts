@@ -1,9 +1,16 @@
 import { createContext, useContext } from "react";
 
 export type TransitionOrigin = { x: number; y: number; size?: number };
+export type HomeTransitionOptions = {
+  state?: unknown;
+};
 
 export interface PageTransitionValue {
   navigateWithTransition: (to: string, origin: TransitionOrigin) => void;
+  navigateHomeWithTransition: (
+    to: string,
+    options?: HomeTransitionOptions,
+  ) => void;
 }
 
 export const PageTransitionContext =

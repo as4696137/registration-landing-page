@@ -14,9 +14,13 @@ dist-ssr
 .env
 .env.*
 !.env.example
+!.env.*.example
 vendor
 backend/vendor
 backend/.env
+backend/.env.*
+!backend/.env.example
+!backend/.env.*.example
 backend/database/*.sqlite
 backend/storage/*
 !backend/storage/app
@@ -31,6 +35,8 @@ backend/storage/*
 !backend/storage/framework/views/.gitkeep
 !backend/storage/logs
 !backend/storage/logs/.gitkeep
+backend/bootstrap/cache/*.php
+backend/public/storage
 
 # Editor directories and files
 .vscode/*

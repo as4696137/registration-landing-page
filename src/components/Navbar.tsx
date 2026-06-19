@@ -1,4 +1,5 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import logo from "../assets/logo.svg";
 import { scrollToSection } from "../utils/scrollTo";
@@ -12,22 +13,40 @@ const navItems = [
   { label: "報名詳情", target: "details" },
 ];
 
+const spinTransition = {
+  duration: 12,
+  ease: "linear",
+  repeat: Infinity,
+} as const;
+
 const RotatingStarBackground = () => (
   <span className="pointer-events-none absolute left-1/2 top-1/2 h-[100px] w-[100px] -translate-x-1/2 -translate-y-1/2 max-[1440px]:h-[72px] max-[1440px]:w-[72px]">
-    <StarPolygon
-      className="star-bg-spin absolute left-[10%] top-[10%] h-full w-full"
-      fill="black"
-      stroke="none"
-      opacity={0.25}
-    />
-    <StarPolygon className="star-bg-spin absolute left-0 top-0 h-full w-full" />
+    <motion.span
+      animate={{ rotate: 360 }}
+      className="absolute left-[10%] top-[10%] h-full w-full origin-center"
+      transition={spinTransition}
+    >
+      <StarPolygon
+        className="h-full w-full"
+        fill="black"
+        stroke="none"
+        opacity={0.25}
+      />
+    </motion.span>
+    <motion.span
+      animate={{ rotate: 360 }}
+      className="absolute left-0 top-0 h-full w-full origin-center"
+      transition={spinTransition}
+    >
+      <StarPolygon className="h-full w-full" />
+    </motion.span>
   </span>
 );
 
 const Navbar = () => {
-  const navigate = useNavigate();
   const location = useLocation();
-  const { navigateWithTransition } = usePageTransition();
+  const { navigateHomeWithTransition, navigateWithTransition } =
+    usePageTransition();
 
   const handleTransitionClick = (e: React.MouseEvent, to: string) => {
     e.preventDefault();
@@ -43,7 +62,7 @@ const Navbar = () => {
     e.preventDefault();
     if (location.pathname !== "/") {
       // 不在首頁時導回首頁，並透過 state 讓 HomePage 在繪製前就定位到該 section（避免閃爍）
-      navigate("/", { state: { scrollTo: id } });
+      navigateHomeWithTransition("/", { state: { scrollTo: id } });
     } else {
       scrollToSection(id);
     }
@@ -53,7 +72,11 @@ const Navbar = () => {
     if (location.pathname === "/") {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
     }
+
+    e.preventDefault();
+    navigateHomeWithTransition("/");
   };
 
   return (

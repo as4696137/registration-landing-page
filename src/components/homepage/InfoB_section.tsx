@@ -3,11 +3,12 @@ import a from "../../assets/homepage/info/02/a.png";
 import b from "../../assets/homepage/info/02/b.png";
 import c from "../../assets/homepage/info/02/c.png";
 import d from "../../assets/homepage/info/02/d.png";
+import { MotionGroup, MotionItem, MotionSection } from "./SectionMotion";
 const InfoB_section = () => {
   return (
-    <section className="relative w-full overflow-hidden bg-[#ffff41]">
-      <div className="relative z-10 mx-auto flex h-fit w-fit flex-col items-center px-[84px] pb-[94px] pt-[88px]">
-        <div className="mb-20 flex items-center max-[1440px]:mb-10 max-[1440px]:flex-col max-[1440px]:items-start max-[1440px]:gap-y-4 max-[786px]:mb-10">
+    <MotionSection className="relative w-full overflow-hidden bg-[#ffff41]">
+      <MotionGroup className="relative z-10 mx-auto flex h-fit w-fit flex-col items-center px-[84px] pb-[94px] pt-[88px]">
+        <MotionItem className="mb-20 flex items-center max-[1440px]:mb-10 max-[1440px]:flex-col max-[1440px]:items-start max-[1440px]:gap-y-4 max-[786px]:mb-10">
           <div className="relative h-fit w-fit pr-6">
             <img
               className="title-shadow-md max-[1440px]:w-[106px]"
@@ -23,10 +24,10 @@ const InfoB_section = () => {
             <br />
             兼顧新聞專業與行銷性
           </h3>
-        </div>
+        </MotionItem>
 
-        <div className="flex flex-wrap justify-center gap-x-6 max-[1440px]:gap-x-[60px] max-[1440px]:gap-y-10 max-[786px]:gap-x-0 max-[786px]:gap-y-8">
-          <div className="flex flex-col items-center">
+        <MotionGroup className="flex flex-wrap justify-center gap-x-6 max-[1440px]:gap-x-[60px] max-[1440px]:gap-y-10 max-[786px]:gap-x-0 max-[786px]:gap-y-8">
+          <MotionItem className="flex flex-col items-center">
             <div className="mb-6 h-[180px] w-[180px] overflow-hidden rounded-full border border-black bg-white p-2.5 drop-shadow-[0_10px_0_rgba(0,0,0,0.25)]">
               <img src={a} alt="" />
             </div>
@@ -40,9 +41,9 @@ const InfoB_section = () => {
                 黃兆徽
               </p>
             </div>
-          </div>
+          </MotionItem>
 
-          <div className="flex flex-col items-center">
+          <MotionItem className="flex flex-col items-center">
             <div className="mb-6 h-[180px] w-[180px] overflow-hidden rounded-full border border-black bg-white p-2.5 drop-shadow-[0_10px_0_rgba(0,0,0,0.25)]">
               <img src={b} alt="" />
             </div>
@@ -54,9 +55,9 @@ const InfoB_section = () => {
                 劉慧雯
               </p>
             </div>
-          </div>
+          </MotionItem>
 
-          <div className="flex flex-col items-center">
+          <MotionItem className="flex flex-col items-center">
             <div className="mb-6 h-[180px] w-[180px] overflow-hidden rounded-full border border-black bg-white p-2.5 drop-shadow-[0_10px_0_rgba(0,0,0,0.25)]">
               <img src={c} alt="" />
             </div>
@@ -70,9 +71,9 @@ const InfoB_section = () => {
                 何欣潔
               </p>
             </div>
-          </div>
+          </MotionItem>
 
-          <div className="flex flex-col items-center">
+          <MotionItem className="flex flex-col items-center">
             <div className="mb-6 h-[180px] w-[180px] overflow-hidden rounded-full border border-black bg-white p-2.5 drop-shadow-[0_10px_0_rgba(0,0,0,0.25)]">
               <img src={d} alt="" />
             </div>
@@ -84,11 +85,11 @@ const InfoB_section = () => {
                 李宛芸
               </p>
             </div>
-          </div>
-        </div>
-      </div>
+          </MotionItem>
+        </MotionGroup>
+      </MotionGroup>
       <div className="grid-bg-blue absolute left-0 top-0 h-full w-full opacity-25"></div>
-    </section>
+    </MotionSection>
   );
 };
 

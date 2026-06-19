@@ -10,6 +10,16 @@ import Works_section from "../components/homepage/Works_section";
 import Details_section from "../components/homepage/Details_section";
 import { scrollToSectionWhenReady } from "../utils/scrollTo";
 
+const homeSections = [
+  Hero_section,
+  About_section,
+  InfoA_section,
+  InfoB_section,
+  InfoC_section,
+  Works_section,
+  Details_section,
+];
+
 const HomePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -18,20 +28,22 @@ const HomePage = () => {
   useLayoutEffect(() => {
     const targetId = (location.state as { scrollTo?: string } | null)?.scrollTo;
     if (!targetId) return;
-    // 清除 state，避免重新整理或返回時再次觸發
-    navigate(".", { replace: true, state: null });
     scrollToSectionWhenReady(targetId);
+    // 延後清除 state，避免跨頁轉場後的立即定位流程被同路由 replace 打斷。
+    const cleanupTimer = window.setTimeout(() => {
+      navigate(".", { replace: true, state: null });
+    }, 0);
+
+    return () => window.clearTimeout(cleanupTimer);
   }, [location.state, navigate]);
 
   return (
     <div className="mt-[84px] flex flex-col items-center max-[1440px]:mt-[60px]">
-      <Hero_section />
-      <About_section />
-      <InfoA_section />
-      <InfoB_section />
-      <InfoC_section />
-      <Works_section />
-      <Details_section />
+      {homeSections.map((Section, index) => (
+        <div className="w-full" key={index}>
+          <Section />
+        </div>
+      ))}
     </div>
   );
 };
