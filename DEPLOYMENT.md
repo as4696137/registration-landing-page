@@ -101,6 +101,7 @@ DB_HOST=
 DB_DATABASE=
 DB_USERNAME=
 DB_PASSWORD=
+FRONTEND_URL=https://as4696137.github.io
 ```
 
 `APP_KEY` 可在本機產生：

@@ -16,7 +16,7 @@ services:
       - key: APP_URL
         value: https://registration-landing-page-api.onrender.com
       - key: FRONTEND_URL
-        value: https://as4696137.github.io/registration-landing-page
+        value: https://as4696137.github.io
       - key: LOG_CHANNEL
         value: stderr
       - key: DB_CONNECTION

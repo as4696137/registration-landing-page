@@ -12,6 +12,7 @@ import {
 } from "../design-system";
 import {
   contestApi,
+  fallbackContestConfig,
   type ContestConfig,
   type Registration,
   type Submission,
@@ -22,7 +23,7 @@ const ACCEPTED = ".pdf,.doc,.docx,.ppt,.pptx,.zip";
 const MAX_BYTES = 20480 * 1024; // 20 MB, per contest.submission_file.max_kilobytes
 
 const SubmitPage = () => {
-  const [contest, setContest] = useState<ContestConfig | null>(null);
+  const [contest, setContest] = useState<ContestConfig>(fallbackContestConfig);
 
   const [code, setCode] = useState("");
   const [lookupError, setLookupError] = useState("");
@@ -40,11 +41,13 @@ const SubmitPage = () => {
   const [result, setResult] = useState<Submission | null>(null);
 
   useEffect(() => {
-    contestApi.getContest().then(setContest).catch(() => undefined);
+    contestApi.getContest().then(setContest).catch(() => {
+      setContest(fallbackContestConfig);
+    });
   }, []);
 
   const awardName = (key?: string) =>
-    contest?.awards.find((a) => a.key === key)?.name ?? key ?? "";
+    contest.awards.find((a) => a.key === key)?.name ?? key ?? "";
 
   const lookup = async (e: React.FormEvent) => {
     e.preventDefault();

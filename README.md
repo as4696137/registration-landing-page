@@ -301,7 +301,7 @@ php artisan route:cache
 - `APP_ENV=production`
 - `APP_DEBUG=false`
 - `APP_URL=https://registration-landing-page-api.onrender.com`
-- `FRONTEND_URL=https://as4696137.github.io/registration-landing-page`
+- `FRONTEND_URL=https://as4696137.github.io`
 - `DB_CONNECTION=pgsql`
 - `DB_HOST` / `DB_DATABASE` / `DB_USERNAME` / `DB_PASSWORD` 使用 Neon connection details
 

@@ -3,10 +3,10 @@
 return [
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
     'allowed_methods' => ['*'],
-    'allowed_origins' => array_filter([
-        env('FRONTEND_URL', 'http://localhost:3000'),
-        env('APP_URL', 'http://localhost:8000'),
-    ]),
+    'allowed_origins' => array_values(array_filter(array_map('trim', explode(',', env(
+        'FRONTEND_URL',
+        'http://localhost:3000,https://as4696137.github.io'
+    ))))),
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],

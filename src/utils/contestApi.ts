@@ -59,7 +59,44 @@ export type Submission = {
   updated_at?: string | null;
 };
 
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/$/, '');
+export const fallbackContestConfig: ContestConfig = {
+  name: '初聲新聞獎',
+  registration_period: {
+    starts_at: '2022-03-01',
+    ends_at: '2022-05-25',
+  },
+  submission_period: {
+    starts_at: '2022-03-01',
+    ends_at: '2022-07-10',
+  },
+  team_size: {
+    min: 1,
+    max: 6,
+  },
+  awards: [
+    {
+      key: 'audience_insight',
+      name: '最佳新聞受眾洞察獎',
+      prompt: '新聞要對誰說話？',
+    },
+    {
+      key: 'strategy_creativity',
+      name: '最佳新聞策略創意獎',
+      prompt: '新聞怎麼說話？',
+    },
+    {
+      key: 'experience_innovation',
+      name: '最佳新聞體驗創新獎',
+      prompt: '新聞用什麼說話？',
+    },
+  ],
+};
+
+const DEFAULT_API_BASE_URL = import.meta.env.PROD
+  ? 'https://registration-landing-page-api.onrender.com/api'
+  : '/api';
+
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || DEFAULT_API_BASE_URL).replace(/\/$/, '');
 
 function apiUrl(path: string) {
   return `${API_BASE_URL}${path}`;

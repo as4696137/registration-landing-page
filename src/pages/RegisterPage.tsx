@@ -12,6 +12,7 @@ import {
 import CustomSelect from "../components/homepage/widget/CustomSelect";
 import {
   contestApi,
+  fallbackContestConfig,
   type ContestConfig,
   type CreateRegistrationPayload,
   type Registration,
@@ -30,7 +31,7 @@ const emptyMember = (): RegistrationMember => ({
 const tagColors = ["yellow", "teal", "pink"] as const;
 
 const RegisterPage = () => {
-  const [contest, setContest] = useState<ContestConfig | null>(null);
+  const [contest, setContest] = useState<ContestConfig>(fallbackContestConfig);
   const [teamName, setTeamName] = useState("");
   const [awardKey, setAwardKey] = useState("");
   const [contactName, setContactName] = useState("");
@@ -44,10 +45,12 @@ const RegisterPage = () => {
   const [result, setResult] = useState<Registration | null>(null);
 
   useEffect(() => {
-    contestApi.getContest().then(setContest).catch(() => undefined);
+    contestApi.getContest().then(setContest).catch(() => {
+      setContest(fallbackContestConfig);
+    });
   }, []);
 
-  const maxMembers = contest?.team_size.max ?? 6;
+  const maxMembers = contest.team_size.max;
 
   const updateMember = (
     index: number,
@@ -124,7 +127,7 @@ const RegisterPage = () => {
   };
 
   const selectedAward = useMemo(
-    () => contest?.awards.find((a) => a.key === awardKey),
+    () => contest.awards.find((a) => a.key === awardKey),
     [contest, awardKey],
   );
 
@@ -142,12 +145,8 @@ const RegisterPage = () => {
         <p className="mb-10 max-w-[640px] font-bold leading-[160%] text-ink">
           填寫團隊與成員資料完成報名，送出後會取得專屬「報名編號」，請妥善保存，
           屆時於「交件專區」交件時需使用。
-          {contest && (
-            <>
-              （報名期間 {contest.registration_period.starts_at} ～{" "}
-              {contest.registration_period.ends_at}）
-            </>
-          )}
+          （報名期間 {contest.registration_period.starts_at} ～{" "}
+          {contest.registration_period.ends_at}）
         </p>
 
         {formError && <ErrorBanner message={formError} />}
@@ -171,7 +170,7 @@ const RegisterPage = () => {
               <CustomSelect
                 id="award_key"
                 className="w-full"
-                options={(contest?.awards ?? []).map((award) => ({
+                options={contest.awards.map((award) => ({
                   value: award.key,
                   label: award.name,
                 }))}
@@ -191,7 +190,7 @@ const RegisterPage = () => {
               <Tag
                 color={
                   tagColors[
-                    (contest?.awards.findIndex((a) => a.key === awardKey) ?? 0) %
+                    contest.awards.findIndex((a) => a.key === awardKey) %
                       tagColors.length
                   ]
                 }
