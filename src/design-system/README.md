@@ -62,7 +62,7 @@ import { SectionTitle, Tag, Card, Avatar, Button } from "../design-system";
 
 <Avatar size="lg"><img src={portrait} alt="評審" /></Avatar>
 
-<Button as="a" href="/submit" variant="dark" size="lg">交件專區</Button>
+<Button as="link" to="/submit" variant="dark" size="lg">交件專區</Button>
 ```
 
 ## Accessibility notes

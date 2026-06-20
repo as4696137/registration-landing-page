@@ -45,7 +45,7 @@ const HOME_IN_SECONDS = 0.46;
 const HOME_OUT_SECONDS = 0.52;
 const HOME_IN_MS = HOME_IN_SECONDS * 1000;
 const HOME_OUT_MS = HOME_OUT_SECONDS * 1000;
-const HOME_INTRO_HOLD_MS = 520;
+const HOME_INTRO_HOLD_MS = 1450;
 
 const STAR_IDLE: StarOverlayState = {
   phase: "idle",
@@ -82,6 +82,63 @@ const homeInTransition = {
 const homeOutTransition = {
   duration: HOME_OUT_SECONDS,
   ease: [0.22, 1, 0.36, 1],
+} as const;
+
+const introContainerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.09,
+      delayChildren: 0.12,
+    },
+  },
+} as const;
+
+const introPopVariants = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+    scale: 0.96,
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.58,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+} as const;
+
+const introSlideLeftVariants = {
+  hidden: {
+    opacity: 0,
+    x: -56,
+  },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.62,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+} as const;
+
+const introSlideRightVariants = {
+  hidden: {
+    opacity: 0,
+    x: 56,
+  },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.62,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
 } as const;
 
 const addOffset = (box: Box): Box => ({
@@ -281,23 +338,138 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
         <motion.div
           aria-hidden
           animate={isHomeEntering ? { y: "0%" } : { y: "100%", opacity: 0.98 }}
-          className="pointer-events-none fixed inset-0 z-[100] overflow-hidden bg-[#4af864]"
+          className="pointer-events-none fixed inset-0 z-[100] overflow-hidden bg-section-blue"
           initial={homeOverlayInitial}
           onAnimationComplete={handleHomeAnimationComplete}
           transition={homeOverlayTransition}
         >
-          <div className="grid-bg-black absolute inset-0 opacity-35" />
-          <motion.div
-            animate={{ x: ["-25%", "0%"] }}
-            className="absolute left-0 top-1/2 h-12 w-[140%] -translate-y-1/2 border-y border-black bg-brand"
-            transition={homeInTransition}
-          />
+          <div className="grid-bg-black absolute inset-0 opacity-50" />
           <motion.div
             animate={{ rotate: 360 }}
-            className="absolute left-1/2 top-1/2 h-[180px] w-[180px] -translate-x-1/2 -translate-y-1/2"
-            transition={{ duration: 1.2, ease: "linear", repeat: Infinity }}
+            className="absolute -left-32 -top-36 h-[430px] w-[430px] opacity-35 max-[768px]:h-[260px] max-[768px]:w-[260px]"
+            transition={{ duration: 16, ease: "linear", repeat: Infinity }}
           >
-            <StarPolygon className="h-full w-full" shadow={false} />
+            <StarPolygon
+              className="h-full w-full"
+              fill="#92f590"
+              opacity={0.7}
+              shadow={false}
+              stroke="none"
+            />
+          </motion.div>
+          <motion.div
+            animate={{ rotate: -360 }}
+            className="absolute -bottom-40 -right-28 h-[520px] w-[520px] opacity-30 max-[768px]:h-[300px] max-[768px]:w-[300px]"
+            transition={{ duration: 18, ease: "linear", repeat: Infinity }}
+          >
+            <StarPolygon
+              className="h-full w-full"
+              fill="#ffff41"
+              opacity={0.8}
+              shadow={false}
+              stroke="none"
+            />
+          </motion.div>
+
+          <motion.div
+            animate="show"
+            className="relative z-10 mx-auto flex min-h-full w-full max-w-[1180px] items-center px-10 py-16 max-[768px]:px-5"
+            initial="hidden"
+            variants={introContainerVariants}
+          >
+            <div className="relative grid w-full grid-cols-[1fr_420px] items-center gap-10 max-[1024px]:grid-cols-1 max-[768px]:gap-7">
+              <motion.div
+                className="relative z-10 flex flex-col items-start"
+                variants={introContainerVariants}
+              >
+                <motion.div
+                  className="mb-5 border border-black bg-brand px-5 py-2 text-xl font-bold leading-[160%] text-ink shadow-hard-md max-[768px]:text-base"
+                  variants={introSlideLeftVariants}
+                >
+                  新聞要真，也要迷人
+                </motion.div>
+
+                <motion.h1
+                  className="title-shadow-lg stroke-black font-display text-[92px] leading-[110%] text-white max-[1024px]:text-[72px] max-[768px]:text-[44px]"
+                  variants={introPopVariants}
+                >
+                  初聲
+                  <br />
+                  新聞獎
+                </motion.h1>
+
+                <motion.div
+                  className="mt-8 flex flex-wrap gap-3 max-[768px]:mt-5"
+                  variants={introContainerVariants}
+                >
+                  {["報名系統", "作品交件", "好新聞定義 2.0"].map((label) => (
+                    <motion.span
+                      className="border border-black bg-white px-4 py-2 text-lg font-bold leading-none text-ink shadow-hard-sm max-[768px]:text-sm"
+                      key={label}
+                      variants={introPopVariants}
+                    >
+                      {label}
+                    </motion.span>
+                  ))}
+                </motion.div>
+              </motion.div>
+
+              <motion.div
+                className="relative z-10 min-h-[360px] max-[1024px]:min-h-[220px] max-[768px]:min-h-[170px]"
+                variants={introContainerVariants}
+              >
+                <motion.div
+                  className="absolute right-8 top-0 h-[132px] w-[300px] border border-black bg-brand shadow-hard-md max-[1024px]:right-auto max-[1024px]:left-[32%] max-[768px]:left-[22%] max-[768px]:h-[92px] max-[768px]:w-[210px]"
+                  variants={introSlideRightVariants}
+                />
+                <motion.div
+                  className="absolute right-0 top-[92px] h-0 w-0 border-l-[48px] border-t-[44px] border-l-transparent border-t-brand max-[1024px]:right-auto max-[1024px]:left-[58%] max-[768px]:left-[62%] max-[768px]:top-[66px] max-[768px]:border-l-[34px] max-[768px]:border-t-[30px]"
+                  variants={introPopVariants}
+                />
+                <motion.div
+                  className="absolute left-2 top-[112px] h-[112px] w-[280px] border border-black bg-[#4af864] shadow-hard-md max-[1024px]:top-[92px] max-[768px]:top-[82px] max-[768px]:h-[78px] max-[768px]:w-[200px]"
+                  variants={introSlideLeftVariants}
+                />
+                <motion.div
+                  className="absolute left-[-26px] top-[96px] h-0 w-0 border-r-[40px] border-t-[34px] border-r-[#4af864] border-t-transparent max-[768px]:left-[-12px] max-[768px]:top-[72px] max-[768px]:border-r-[28px] max-[768px]:border-t-[24px]"
+                  variants={introPopVariants}
+                />
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  className="absolute bottom-2 right-28 h-[122px] w-[122px] max-[768px]:bottom-0 max-[768px]:right-16 max-[768px]:h-[78px] max-[768px]:w-[78px]"
+                  transition={{ duration: 1.2, ease: "linear", repeat: Infinity }}
+                  variants={introPopVariants}
+                >
+                  <StarPolygon className="h-full w-full" shadow={false} />
+                </motion.div>
+                <motion.div
+                  className="absolute bottom-20 right-4 h-8 w-8 rotate-45 border border-black bg-white shadow-hard-sm max-[768px]:bottom-16 max-[768px]:right-1"
+                  variants={introPopVariants}
+                />
+                <motion.div
+                  className="absolute bottom-1 left-16 h-5 w-5 rotate-45 border border-black bg-white shadow-hard-sm max-[768px]:left-8"
+                  variants={introPopVariants}
+                />
+              </motion.div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            animate={{ x: ["-16%", "0%"] }}
+            className="absolute bottom-0 left-0 z-20 flex w-[140%] border-y border-black bg-black py-3"
+            transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+          />
+          <motion.div
+            animate={{ x: ["0%", "-50%"] }}
+            className="absolute bottom-0 left-0 z-30 flex whitespace-nowrap py-3 text-base font-bold tracking-[0.2rem] text-[#4af864] max-[768px]:text-sm"
+            transition={{ duration: 18, ease: "linear", repeat: Infinity }}
+          >
+            <span>
+              【新聞要真 也要迷人 好新聞定義2.0】【新聞要真 也要迷人 好新聞定義2.0】【新聞要真 也要迷人 好新聞定義2.0】
+            </span>
+            <span>
+              【新聞要真 也要迷人 好新聞定義2.0】【新聞要真 也要迷人 好新聞定義2.0】【新聞要真 也要迷人 好新聞定義2.0】
+            </span>
           </motion.div>
         </motion.div>
       )}

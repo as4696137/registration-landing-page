@@ -321,10 +321,10 @@ const SuccessPanel = ({ submission }: { submission: Submission }) => (
           如需修改，可於交件期間內以相同報名編號重新交件覆蓋。
         </p>
         <div className="mt-2 flex w-full items-center justify-center gap-4 max-[640px]:flex-col">
-          <Button as="a" href="/submit" variant="secondary">
+          <Button as="link" to="/submit" variant="secondary">
             再次交件 / 更新
           </Button>
-          <Button as="a" href="/" variant="dark">
+          <Button as="link" to="/" variant="dark">
             返回首頁
           </Button>
         </div>

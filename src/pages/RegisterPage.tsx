@@ -153,7 +153,7 @@ const RegisterPage = () => {
 
         <form onSubmit={onSubmit} noValidate className="flex flex-col gap-8">
           {/* 團隊資料 */}
-          <Card className="gap-5">
+          <Card className="relative z-30 gap-5 overflow-visible">
             <h2 className="text-2xl font-bold text-ink">團隊資料</h2>
             <Field label="團隊名稱" htmlFor="team_name" required error={errors.team_name}>
               <Input
@@ -416,7 +416,7 @@ const SuccessPanel = ({ registration }: { registration: Registration }) => {
             <Button type="button" variant="secondary" onClick={copy}>
               {copied ? "已複製 ✓" : "複製編號"}
             </Button>
-            <Button as="a" href="/submit" variant="dark">
+            <Button as="link" to="/submit" variant="dark">
               前往交件專區
             </Button>
           </div>

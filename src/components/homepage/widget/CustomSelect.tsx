@@ -55,7 +55,7 @@ const CustomSelect = ({
 
   return (
     <div
-      className={`relative font-medium leading-[160%] ${className}`}
+      className={`relative font-medium leading-[160%] ${isOpen ? "z-[9999]" : "z-0"} ${className}`}
       ref={selectRef}
     >
       <div
@@ -87,7 +87,7 @@ const CustomSelect = ({
       {isOpen && (
         <ul
           role="listbox"
-          className="absolute left-0 right-0 top-full z-[1000] m-0 max-h-[200px] list-none overflow-y-auto bg-white p-0"
+          className="absolute left-0 right-0 top-full z-[9999] m-0 max-h-[240px] list-none overflow-y-auto border border-black bg-white p-0 shadow-[0_8px_0_rgba(0,0,0,0.25)]"
         >
           {options.map((option) => {
             const isSelected = selectedOption?.value === option.value;
@@ -97,7 +97,7 @@ const CustomSelect = ({
                 role="option"
                 aria-selected={isSelected}
                 onClick={() => handleOptionClick(option)}
-                className={`cursor-pointer border border-black px-5 py-2.5 text-base font-medium hover:bg-[#e6e6e6] ${
+                className={`cursor-pointer border-b border-black px-5 py-2.5 text-base font-medium last:border-b-0 hover:bg-[#e6e6e6] ${
                   isSelected ? "bg-[#FFFF41]" : "bg-white"
                 }`}
               >

@@ -5,12 +5,11 @@ import dialogbox_A from "../../assets/homepage/about/dialogbox_A.svg";
 import dialogbox_B from "../../assets/homepage/about/dialogbox_B.svg";
 import dialogbox_C from "../../assets/homepage/about/dialogbox_C.svg";
 import shiny from "../../assets/homepage/about/shiny.svg";
-import { MotionItem, MotionSection } from "./SectionMotion";
 
 const About_section = () => {
   return (
-    <MotionSection id="about" className="relative w-full overflow-hidden bg-[#0000ff]">
-      <MotionItem className="relative z-30 mx-auto mb-[100px] mt-[276px] h-fit w-fit max-[1440px]:mb-[132px] max-[1440px]:mt-[243px] max-[768px]:mb-[79px] max-[768px]:mt-[162px]">
+    <section id="about" className="relative w-full overflow-hidden bg-[#0000ff]">
+      <div className="relative z-30 mx-auto mb-[100px] mt-[276px] h-fit w-fit max-[1440px]:mb-[132px] max-[1440px]:mt-[243px] max-[768px]:mb-[79px] max-[768px]:mt-[162px]">
         <h2 className="title-shadow-lg stroke-black absolute left-[-205px] top-[-188px] z-50 whitespace-nowrap font-display text-[80px] leading-[120%] text-white max-[1440px]:left-1/2 max-[1440px]:top-[-183px] max-[1440px]:-translate-x-1/2 max-[1440px]:text-[65px] max-[768px]:top-[-122px] max-[768px]:text-5xl">
           關於初聲
         </h2>
@@ -89,7 +88,7 @@ const About_section = () => {
             鼓勵每一個對新聞有熱情、想法和企圖的你， 出聲定義新時代的好新聞。
           </div>
         </div>
-      </MotionItem>
+      </div>
       <div className="grid-bg-black absolute left-0 top-0 z-10 h-full w-full"></div>
       <img className="absolute left-[-116px] top-[-96px] z-[5]" src={bg_star} alt="" />
       <img
@@ -97,7 +96,7 @@ const About_section = () => {
         src={bg_star}
         alt=""
       />
-    </MotionSection>
+    </section>
   );
 };
 

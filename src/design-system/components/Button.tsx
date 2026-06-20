@@ -8,9 +8,10 @@
  *
  * @example
  * <Button variant="primary" size="lg">點我報名</Button>
- * <Button as="a" href="/submit" variant="dark">交件專區</Button>
+ * <Button as="link" to="/submit" variant="dark">交件專區</Button>
  */
 import React from "react";
+import { Link, type LinkProps } from "react-router-dom";
 import { cn } from "../utils/cn";
 
 export type ButtonVariant = "primary" | "secondary" | "dark";
@@ -33,7 +34,12 @@ type ButtonAsAnchor = BaseProps &
     as: "a";
   };
 
-export type ButtonProps = ButtonAsButton | ButtonAsAnchor;
+type ButtonAsLink = BaseProps &
+  Omit<LinkProps, keyof BaseProps> & {
+    as: "link";
+  };
+
+export type ButtonProps = ButtonAsButton | ButtonAsAnchor | ButtonAsLink;
 
 const base =
   "inline-flex items-center justify-center border border-ink font-bold leading-none drop-shadow-hard-md transition-all duration-100 " +
@@ -70,6 +76,20 @@ export const Button = React.forwardRef<
       >
         {children}
       </a>
+    );
+  }
+
+  if (rest.as === "link") {
+    const { as: _as, ...linkProps } = rest;
+    void _as;
+    return (
+      <Link
+        ref={ref as React.Ref<HTMLAnchorElement>}
+        className={classes}
+        {...linkProps}
+      >
+        {children}
+      </Link>
     );
   }
 
