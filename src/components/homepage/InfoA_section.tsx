@@ -32,7 +32,7 @@ const InfoA_section = () => {
           >
             創新三大獎項,
             <br />
-            定義新世代的好新聞
+            定義新世代的超讚新聞
           </SectionTitle>
         </MotionItem>
 
