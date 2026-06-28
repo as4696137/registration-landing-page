@@ -1,5 +1,8 @@
 # registration-landing-page
 
+> [!IMPORTANT]
+> 此作品為簡訊設計外包工程測試考題，設計稿由簡訊設計提供，該專案僅供簡訊設計面試時使用，不另做其它用途。
+
 這是一套「初聲新聞獎」活動網站與報名/交件系統。前端使用 React、TypeScript、Vite、Tailwind CSS 與 Framer Motion 製作活動頁、導覽列、頁面轉場、報名表單與交件流程；後端放在 `backend/`，使用 Laravel 提供賽事設定、報名資料與交件資料 API。
 
 ## 功能範圍
